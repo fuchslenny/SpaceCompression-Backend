@@ -1,6 +1,6 @@
 package space.backend.helper;
 
-import space.backend.file.compression.FileCompression;
+import space.backend.compression.file.FileCompression;
 
 import java.io.*;
 

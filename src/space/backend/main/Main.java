@@ -12,6 +12,7 @@ public class Main {
             Helper.CheckTypes(filepath);
         }
         else{
+            System.out.println("Now using the tcp client");
             Helper.TCPFileGetter();
         }
     }
