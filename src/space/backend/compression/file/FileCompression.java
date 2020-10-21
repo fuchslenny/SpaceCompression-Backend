@@ -16,12 +16,30 @@ public class FileCompression {
 
     public static void Compression(String fileValue){
         String buffer = "";
-        List<String> doubles;
+        String characterBuffer = "";
+        List<String> doubles = null;
+
         for(int i = 0; i<fileValue.length(); i++){
             char currentChar = fileValue.charAt(i);
+
+
             if(!" ".equals(currentChar) || !",".equals(currentChar) || !".".equals(currentChar)){
                 buffer = buffer + currentChar;
+
             }
+            else if(".".equals(currentChar) || ",".equals(currentChar)){
+                if(buffer.length() != 0 && doubles.size() != 0 && buffer != null || doubles != null){
+                    boolean contain = doubles.contains(buffer);
+
+                }
+                characterBuffer = characterBuffer + currentChar;
+
+                doubles.add(buffer);
+            }
+            else{
+                continue; //TODO
+            }
+
         }
     }
 }
