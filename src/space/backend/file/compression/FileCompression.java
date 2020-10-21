@@ -1,9 +1,10 @@
-package space.backend.filecompression;
+package space.backend.file.compression;
 
 import java.util.List;
 
 public class FileCompression {
     public static void Compression(String fileValue){
+        //TODO
         System.out.println(fileValue);
         fileValue = "AUCH EIN KLEINER BEITRAG IST EIN BEITRAG";
         List<String> doubles;

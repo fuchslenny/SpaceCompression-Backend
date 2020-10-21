@@ -7,6 +7,12 @@ public class Main {
     public static void main(String args[]){
         Scanner getInput = new Scanner(System.in);
         String filepath = getInput.nextLine();
-        Helper.CheckTypes(filepath);
+        //just for the beginning getting into the test
+        if(filepath != ""){
+            Helper.CheckTypes(filepath);
+        }
+        else{
+            Helper.TCPFileGetter();
+        }
     }
 }
