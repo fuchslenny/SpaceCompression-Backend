@@ -1,6 +1,8 @@
 package space.backend.compression.file;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FileCompression {
 
@@ -36,10 +38,36 @@ public class FileCompression {
 
                 doubles.add(buffer);
             }
-            else{
+            else {
                 continue; //TODO
             }
-
         }
+        float letterFrequency = relativeFrequency(buffer);
+    }
+
+    private static float relativeFrequency(String buffer){
+        float letterFrequency = 0;
+
+        HashMap<Character, Integer> charCountMap = characterCount(buffer);
+
+        for(Map.Entry entry : charCountMap.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+        return letterFrequency;
+    }
+
+    private static HashMap characterCount(String buffer){
+        HashMap<Character, Integer> charCountMap = new HashMap<Character, Integer>();
+        char[] bufferArray = buffer.toCharArray();
+
+        for(char c : bufferArray){
+            if(charCountMap.containsKey(c)){
+                charCountMap.put(c, charCountMap.get(c)+ 1);
+            }
+            else{
+                charCountMap.put(c, 1);
+            }
+        }
+        return charCountMap;
     }
 }
