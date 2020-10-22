@@ -1,20 +1,12 @@
 package space.backend.compression.file;
 
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class FileCompression {
-
-    private String fileValue = "Es verlangt sehr viel Tapferkeit, sich seinen Feinden " +
-            "in den Weg zu stellen, aber wesentlich mehr noch, sich seinen Freunden in den Weg zu stellen. " +
-            "Wenn du wissen willst, wie ein Mensch ist, dann sieh dir genau an wie er seine Untergebenen " +
-            "behandelt, nicht die Gleichrangigen." +
-            "Glück und Zuversicht vermag man selbst in Zeiten der Dunkelheit zu finden. Man darf bloß nicht" +
-            "vergessen ein Licht leuchten zu lassen. Die Stimme eines Kindes, egal wie ehrlich oder aufrichtig, " +
-            "ist bedeutungslos für jene, die verlernt haben zuzuhören." +
-            "Du bist der, der schwach ist. Du wirst nie wissen, was Liebe ist. Oder Freundschaft. Und deswegen " +
-            "kannst du mir nur Leid tun!";
 
     public static void Compression(String fileValue){
         String buffer = "";
@@ -30,30 +22,37 @@ public class FileCompression {
 
             }
             else if(".".equals(currentChar) || ",".equals(currentChar)){
-                if(buffer.length() != 0 && doubles.size() != 0 && buffer != null || doubles != null){
+                /*if(buffer.length() != 0 && doubles.size() != 0 && buffer != null || doubles != null){
                     boolean contain = doubles.contains(buffer);
 
-                }
+                }*/
                 characterBuffer = characterBuffer + currentChar;
 
-                doubles.add(buffer);
+                //doubles.add(buffer);
             }
             else {
                 continue; //TODO
             }
         }
-        float letterFrequency = relativeFrequency(buffer);
+        List<Float> letterFrequencies = relativeFrequency(buffer);
+        for(float f : letterFrequencies){
+            System.out.println(f);
+        }
     }
 
-    private static float relativeFrequency(String buffer){
+    private static List relativeFrequency(String buffer){
         float letterFrequency = 0;
-
         HashMap<Character, Integer> charCountMap = characterCount(buffer);
+        ArrayList<Float> frequencies = new ArrayList<Float>();
 
         for(Map.Entry entry : charCountMap.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
+            String value = entry.getValue().toString();
+            int intValue = Integer.parseInt(value);
+            letterFrequency = intValue / buffer.length();
+            frequencies.add(letterFrequency);
         }
-        return letterFrequency;
+        return frequencies;
     }
 
     private static HashMap characterCount(String buffer){
