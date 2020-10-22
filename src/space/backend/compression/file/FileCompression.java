@@ -1,6 +1,5 @@
 package space.backend.compression.file;
 
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

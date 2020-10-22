@@ -64,6 +64,30 @@ public class Helper {
         }
     }
 
+    public static void FileDataWriter(String filename, boolean isNew, String endData){
+        if(isNew == true){
+            File file = new File("/" + filename + ".spce");
+            try{
+                FileWriter writer = new FileWriter(file);
+                writer.write(endData);
+                writer.close();
+            }
+            catch(IOException e){
+                System.out.println(e);
+            }
+        }
+        else {
+            File file = new File("/" + filename + "-compresssed.spce");
+            try {
+                FileWriter writer = new FileWriter(file);
+                writer.write(endData);
+                writer.close();
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+    }
+
     public static void CheckTypes(String filename){
         filename = filename.strip();
 
