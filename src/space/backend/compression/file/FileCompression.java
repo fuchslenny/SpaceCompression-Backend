@@ -7,49 +7,52 @@ import java.util.Map;
 
 public class FileCompression {
 
-    public static void Compression(String fileValue){
-        String buffer = "";
-        String characterBuffer = "";
-        List<String> doubles = null;
+    public static void Compression(String fileValue) {
+        ArrayList<String> wordList = Sort(fileValue);
+        ArrayList<Double> frequencies = new ArrayList<Double>();
 
-        for(int i = 0; i<fileValue.length(); i++){
-            char currentChar = fileValue.charAt(i);
-
-
-            if(!" ".equals(currentChar) || !",".equals(currentChar) || !".".equals(currentChar)){
-                buffer = buffer + currentChar;
-
-            }
-            else if(".".equals(currentChar) || ",".equals(currentChar)){
-                /*if(buffer.length() != 0 && doubles.size() != 0 && buffer != null || doubles != null){
-                    boolean contain = doubles.contains(buffer);
-
-                }*/
-                characterBuffer = characterBuffer + currentChar;
-
-                //doubles.add(buffer);
-            }
-            else {
-                continue; //TODO
-            }
+        for(int i = 0; i<wordList.size(); i++){
+            frequencies = relativeFrequency(wordList, i);
         }
-        List<Float> letterFrequencies = relativeFrequency(buffer);
-        for(float f : letterFrequencies){
-            System.out.println(f);
+
+        for (double f : frequencies) {
+            System.out.println(f + "\n--------------------------");
         }
+
     }
 
-    private static List relativeFrequency(String buffer){
+    private static ArrayList<String> Sort(String fileValue){
+        String buffer = "";
+        String characterBuffer = "";
+        ArrayList<String> wordList = new ArrayList<String>();
+
+        for (int i = 0; i < fileValue.length(); i++) {
+            char currentChar = fileValue.charAt(i);
+
+            if (!" ".equals(String.valueOf(currentChar)) || !",".equals(String.valueOf(currentChar)) || !".".equals(String.valueOf(currentChar))) {
+                buffer = buffer + currentChar;
+            }
+            //TODO
+            else if (".".equals(String.valueOf(currentChar)) || ",".equals(String.valueOf(currentChar))) {
+                characterBuffer = characterBuffer + currentChar;
+                wordList.add(buffer);
+            }
+        }
+        return wordList;
+    }
+
+    private static ArrayList<Double> relativeFrequency(ArrayList<String> wordList, int i){
+        String buffer = wordList.get(i);
         float letterFrequency = 0;
         HashMap<Character, Integer> charCountMap = characterCount(buffer);
-        ArrayList<Float> frequencies = new ArrayList<Float>();
+        ArrayList<Double> frequencies = new ArrayList<Double>();
 
         for(Map.Entry entry : charCountMap.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
             String value = entry.getValue().toString();
             int intValue = Integer.parseInt(value);
             letterFrequency = intValue / buffer.length();
-            frequencies.add(letterFrequency);
+            frequencies.add((double) letterFrequency);
         }
         return frequencies;
     }
