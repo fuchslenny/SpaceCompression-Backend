@@ -2,29 +2,28 @@ package space.backend.compression.file;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FileCompression {
 
     public static void Compression(String fileValue) {
         ArrayList<String> wordList = Sort(fileValue);
-        ArrayList<Double> frequencies = new ArrayList<Double>();
+        ArrayList<Double> frequencies = new ArrayList<>();
 
         for(int i = 0; i<wordList.size(); i++){
             frequencies = relativeFrequency(wordList, i);
         }
+        Node<Double> newNode = new Node<>();
 
-        for (double f : frequencies) {
-            System.out.println(f + "\n--------------------------");
+        for(double frequency : frequencies){
+            newNode.addChild(frequency);
         }
-
     }
 
     private static ArrayList<String> Sort(String fileValue){
         String buffer = "";
-        String characterBuffer = "";
-        ArrayList<String> wordList = new ArrayList<String>();
+        StringBuilder characterBuffer = new StringBuilder();
+        ArrayList<String> wordList = new ArrayList<>();
 
         for (int i = 0; i < fileValue.length(); i++) {
             char currentChar = fileValue.charAt(i);
@@ -34,7 +33,7 @@ public class FileCompression {
             }
             //TODO
             else if (".".equals(String.valueOf(currentChar)) || ",".equals(String.valueOf(currentChar))) {
-                characterBuffer = characterBuffer + currentChar;
+                characterBuffer.append(currentChar);
                 wordList.add(buffer);
             }
         }
@@ -43,9 +42,9 @@ public class FileCompression {
 
     private static ArrayList<Double> relativeFrequency(ArrayList<String> wordList, int i){
         String buffer = wordList.get(i);
-        float letterFrequency = 0;
+        float letterFrequency;
         HashMap<Character, Integer> charCountMap = characterCount(buffer);
-        ArrayList<Double> frequencies = new ArrayList<Double>();
+        ArrayList<Double> frequencies = new ArrayList<>();
 
         for(Map.Entry entry : charCountMap.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
@@ -57,8 +56,8 @@ public class FileCompression {
         return frequencies;
     }
 
-    private static HashMap characterCount(String buffer){
-        HashMap<Character, Integer> charCountMap = new HashMap<Character, Integer>();
+    private static HashMap<Character, Integer> characterCount(String buffer){
+        HashMap<Character, Integer> charCountMap = new HashMap<>();
         char[] bufferArray = buffer.toCharArray();
 
         for(char c : bufferArray){
@@ -70,5 +69,19 @@ public class FileCompression {
             }
         }
         return charCountMap;
+    }
+
+    private static class Node<T> {
+        private T data;
+        private Node<T> parent;
+        private ArrayList<Node<T>> children;
+
+        private Node<T> addChild(T child) {
+            Node<T> childNode = new Node<T>();
+            childNode.parent = this;
+            childNode.data = child;
+            this.children.add(childNode);
+            return childNode;
+        }
     }
 }

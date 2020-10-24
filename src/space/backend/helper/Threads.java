@@ -1,7 +1,5 @@
 package space.backend.helper;
 
-import space.backend.compression.file.FileCompression;
-
 import java.util.Scanner;
 
 public class Threads extends Thread {
