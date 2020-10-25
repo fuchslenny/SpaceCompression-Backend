@@ -77,7 +77,7 @@ public class FileCompression {
         private ArrayList<Node<T>> children;
 
         private Node<T> addChild(T child) {
-            Node<T> childNode = new Node<T>();
+            Node<T> childNode = new Node<>();
             childNode.parent = this;
             childNode.data = child;
             this.children.add(childNode);
