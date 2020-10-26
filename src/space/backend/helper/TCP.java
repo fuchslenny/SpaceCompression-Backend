@@ -14,7 +14,7 @@ public class TCP {
     }
 
     void test() throws IOException{
-        int port = 1111;
+        int port = 25102;
         java.net.ServerSocket serverSocket = new java.net.ServerSocket(port);
         java.net.Socket client = waitFor(serverSocket);
         String message = readMessage(client);

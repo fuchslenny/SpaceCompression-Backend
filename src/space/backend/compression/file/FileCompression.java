@@ -13,11 +13,7 @@ public class FileCompression {
         for(int i = 0; i<wordList.size(); i++){
             frequencies = relativeFrequency(wordList, i);
         }
-        Node<Double> newNode = new Node<>();
-
-        for(double frequency : frequencies){
-            newNode.addChild(frequency);
-        }
+        MakeTree(frequencies);
     }
 
     private static ArrayList<String> Sort(String fileValue){
@@ -49,7 +45,7 @@ public class FileCompression {
         for(Map.Entry entry : charCountMap.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
             String value = entry.getValue().toString();
-            int intValue = Integer.parseInt(value);
+            float intValue = Float.parseFloat(value);
             letterFrequency = intValue / buffer.length();
             frequencies.add((double) letterFrequency);
         }
@@ -83,5 +79,42 @@ public class FileCompression {
             this.children.add(childNode);
             return childNode;
         }
+    }
+
+    private static void MakeTree(ArrayList<Double> frequencies){
+        ArrayList<Double> smallest = new ArrayList<>();
+        int size = frequencies.size();
+        Node<Double> newNode = new Node<>();
+
+        while(size != 1){
+            frequencies = CombineTrees(frequencies, newNode);
+        }
+    }
+
+    private static ArrayList<Double> CombineTrees(ArrayList<Double> frequencies, Node<Double> newNode){
+        double first, second, size = frequencies.size();
+        ArrayList<Double> getSmallest = new ArrayList<>();
+
+        if(size < 2){
+            //TODO
+        }
+        first = second = Double.MAX_VALUE;
+
+        for(int i = 0; i<size; i++){
+            newNode.addChild(frequencies.get(i));
+            if(frequencies.get(i) < first){
+                second = first;
+                first = frequencies.get(i);
+            }
+            else if(frequencies.get(i) < second && frequencies.get(i) != first){
+                second = frequencies.get(i);
+            }
+        }
+        frequencies.remove(first);
+        frequencies.remove(second);
+        double newValue = first + second;
+        getSmallest.add(newValue);
+
+        return getSmallest;
     }
 }
