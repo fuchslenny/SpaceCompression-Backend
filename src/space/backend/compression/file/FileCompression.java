@@ -1,3 +1,7 @@
+/**
+ * @author fuchslenny
+ */
+
 package space.backend.compression.file;
 
 import java.util.ArrayList;
@@ -94,10 +98,6 @@ public class FileCompression {
     private static ArrayList<Double> CombineTrees(ArrayList<Double> frequencies, Node<Double> newNode){
         double first, second, size = frequencies.size();
         ArrayList<Double> getSmallest = new ArrayList<>();
-
-        if(size < 2){
-            //TODO
-        }
         first = second = Double.MAX_VALUE;
 
         for(int i = 0; i<size; i++){

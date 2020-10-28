@@ -1,3 +1,7 @@
+/**
+ * @author fuchslenny
+ */
+
 package space.backend.main;
 
 import space.backend.helper.Threads;

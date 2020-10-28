@@ -1,40 +1,51 @@
+/**
+ * @author fuchslenny
+ */
+
 package space.backend.helper;
 
 import java.io.*;
 
 public class TCP {
 
+    private static java.net.Socket client;
+
     public static void TCPFileGetter(){
         TCP server = new TCP();
         try{
-            server.test();
+            server.Handler();
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    void test() throws IOException{
+    private static void Handler() throws IOException{
         int port = 25102;
         java.net.ServerSocket serverSocket = new java.net.ServerSocket(port);
-        java.net.Socket client = waitFor(serverSocket);
-        String message = readMessage(client);
-        sendMessage(client, message);
+        client = waitFor(serverSocket);
+        byte[] fileContent = ReadMessage(client);
+        Helper.ParseContent(fileContent);
     }
 
-    java.net.Socket waitFor(java.net.ServerSocket serverSocket) throws IOException{
+    private static java.net.Socket waitFor(java.net.ServerSocket serverSocket) throws IOException{
         return serverSocket.accept();
     }
 
-    String readMessage(java.net.Socket socket) throws IOException{
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        char[] buffer = new char[200];
-        int sizeMessage = bufferedReader.read(buffer, 0, 200);
-        return new String(buffer, 0, sizeMessage);
+    private static byte[] ReadMessage(java.net.Socket socket) throws IOException{
+        byte[] buffer = new byte[200];
+        InputStream stream = socket.getInputStream();
+        int count = stream.read(buffer);
+
+        return buffer;
     }
 
-    void sendMessage(java.net.Socket socket, String message) throws IOException{
+    private static void SendMessage(java.net.Socket socket, byte[] fileContent) throws IOException{
         PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-        printWriter.print(message);
+        printWriter.print(fileContent);
         printWriter.flush();
+    }
+
+    public static void Message(byte[] compressedFileContent) throws IOException {
+        SendMessage(client, compressedFileContent);
     }
 }

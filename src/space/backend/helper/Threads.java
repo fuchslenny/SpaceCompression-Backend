@@ -1,3 +1,7 @@
+/**
+ * @author fuchslenny
+ */
+
 package space.backend.helper;
 
 import java.util.Scanner;
@@ -15,8 +19,9 @@ public class Threads extends Thread {
             String filepath = getInput.nextLine();
 
             if(filepath.isEmpty()){
-                filepath = "harry_potter.txt";
-                Helper.CheckTypes(filepath);
+                /*File file = new File(filepath = "harry_potter.txt");
+                Helper.CheckTypes(file,);
+                 */
             }
             else{
                 System.out.println("Now using the tcp client");
